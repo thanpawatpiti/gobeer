@@ -1,12 +1,14 @@
 package controller
 
-import "github.com/thanpawatpiti/gobeer/pkg/services"
+import (
+	"github.com/thanpawatpiti/gobeer/pkg/domain"
+)
 
 type Controller struct {
-	service services.Service
+	service domain.BeerSerives
 }
 
-func NewController(service services.Service) *Controller {
+func NewController(service domain.BeerSerives) *Controller {
 	return &Controller{
 		service: service,
 	}

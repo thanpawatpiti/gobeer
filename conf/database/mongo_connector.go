@@ -8,7 +8,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-var mongoDB *mongo.Client
+var MongoDB *mongo.Client
 
 // InitMongoDB is a function that connect to MongoDB
 func InitMongoDB() error {
@@ -27,7 +27,7 @@ func InitMongoDB() error {
 		panic(err)
 	}
 
-	mongoDB = client
+	MongoDB = client
 
 	fmt.Println("Connected to MongoDB!")
 

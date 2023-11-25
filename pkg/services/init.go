@@ -1,15 +1,15 @@
 package services
 
-import "github.com/thanpawatpiti/gobeer/pkg/repositories"
+import (
+	"github.com/thanpawatpiti/gobeer/pkg/domain"
+)
 
 type Service struct {
-	mariaDB repositories.MariaRepository
-	mongoDB repositories.MongoRepository
+	repo domain.BeerRepository
 }
 
-func NewService(mariaDB repositories.MariaRepository, mongoDB repositories.MongoRepository) *Service {
+func NewService(repo domain.BeerRepository) domain.BeerSerives {
 	return &Service{
-		mariaDB: mariaDB,
-		mongoDB: mongoDB,
+		repo: repo,
 	}
 }

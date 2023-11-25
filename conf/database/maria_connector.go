@@ -7,7 +7,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-var mariaDB *sql.DB
+var MariaDB *sql.DB
 
 // InitMariaDB is a function that connect to MariaDB
 func InitMariaDB() error {
@@ -23,7 +23,7 @@ func InitMariaDB() error {
 		panic(err)
 	}
 
-	mariaDB = db
+	MariaDB = db
 
 	fmt.Println("Connected to MariaDB!")
 

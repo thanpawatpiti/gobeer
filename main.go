@@ -13,14 +13,13 @@ func main() {
 	database.InitMongoDB()
 
 	// Init repositories
-	mariaRepository := repositories.NewMariaRepository()
-	mongoRepository := repositories.NewMongoRepository()
+	repo := repositories.NewRepository(database.MariaDB, database.MongoDB)
 
 	// Init services
-	service := services.NewService(*mariaRepository, *mongoRepository)
+	service := services.NewService(repo)
 
 	// Init controller
-	controller := controller.NewController(*service)
+	controller := controller.NewController(service)
 
 	// Init Fiber
 	app := fiber.New()
