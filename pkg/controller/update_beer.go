@@ -29,8 +29,16 @@ func (c *Controller) UpdateBeer(ctx *fiber.Ctx) error {
 		entity.BeerName = name
 	}
 
-	if len(beer_type_id) > 0 {
+	if beer_type_id != "" {
 		entity.BeerTypeID = c.parseToInt(beer_type_id)
+	}
+
+	// not allow empty all field
+	if len(name) < 1 && beer_type_id == "" && image == nil {
+		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"code":    fiber.StatusBadRequest,
+			"message": "please fill in the some field",
+		})
 	}
 
 	// Update beer

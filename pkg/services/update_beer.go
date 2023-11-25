@@ -10,9 +10,11 @@ import (
 
 func (s *Service) UpdateBeer(ctx context.Context, entity *entities.Beer, image *multipart.FileHeader, id int) error {
 	// check beer type
-	err := s.repo.GetBeerType(ctx, entity.BeerTypeID)
-	if err != nil {
-		return err
+	if entity.BeerTypeID > 0 {
+		err := s.repo.GetBeerType(ctx, entity.BeerTypeID)
+		if err != nil {
+			return err
+		}
 	}
 
 	if image != nil {
@@ -26,7 +28,7 @@ func (s *Service) UpdateBeer(ctx context.Context, entity *entities.Beer, image *
 	}
 
 	// Update beer
-	err = s.repo.UpdateBeer(ctx, entity, id)
+	err := s.repo.UpdateBeer(ctx, entity, id)
 	if err != nil {
 		return err
 	}
