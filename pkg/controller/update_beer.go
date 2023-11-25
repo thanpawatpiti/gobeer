@@ -13,6 +13,13 @@ func (c *Controller) UpdateBeer(ctx *fiber.Ctx) error {
 	image, _ := ctx.FormFile("image")
 
 	// Validate form data
+	if len(id) < 1 {
+		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"code":    fiber.StatusBadRequest,
+			"message": "id is required",
+		})
+	}
+
 	if len(name) < 1 {
 		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"code":    fiber.StatusBadRequest,

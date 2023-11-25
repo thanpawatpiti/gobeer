@@ -13,4 +13,5 @@ type BeerRepository interface {
 	AddBeer(ctx context.Context, input *entities.Beer) error
 	CreateLog(ctx context.Context, action string, input interface{}) error
 	UpdateBeer(ctx context.Context, input *entities.Beer, id int) error
+	DeleteBeer(ctx context.Context, id int) error
 }
