@@ -14,7 +14,7 @@ func (c *Controller) GetBeer(ctx *fiber.Ctx) error {
 
 	// Validate query params
 	if name == "" {
-		name = "%%"
+		name = ""
 	} else {
 		name = "%" + name + "%"
 	}
@@ -32,7 +32,7 @@ func (c *Controller) GetBeer(ctx *fiber.Ctx) error {
 	per_pageInt := c.parseToInt(per_page)
 
 	// Get beers
-	beers, err := c.service.GetBeer(ctx.Context(), &name, pageInt, per_pageInt)
+	beers, err := c.service.GetBeer(ctx.Context(), name, pageInt, per_pageInt)
 	if err != nil {
 		return ctx.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"code":    fiber.StatusInternalServerError,
@@ -41,7 +41,7 @@ func (c *Controller) GetBeer(ctx *fiber.Ctx) error {
 	}
 
 	return ctx.Status(fiber.StatusOK).JSON(fiber.Map{
-		"code":    fiber.StatusOK,
+		"code":    0,
 		"message": "success",
 		"data":    beers,
 	})
