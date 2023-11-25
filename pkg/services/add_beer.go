@@ -11,6 +11,12 @@ import (
 func (s *Service) AddBeer(ctx context.Context, input *entities.Beer, image *multipart.FileHeader) error {
 	filePath := ""
 
+	// check beer type
+	err := s.repo.GetBeerType(ctx, input.BeerTypeID)
+	if err != nil {
+		return err
+	}
+
 	if image != nil {
 		// Upload file
 		file, err := helpers.UploadFile(ctx, image)
@@ -24,7 +30,7 @@ func (s *Service) AddBeer(ctx context.Context, input *entities.Beer, image *mult
 	input.Image = filePath
 
 	// Add beer
-	err := s.repo.AddBeer(ctx, input)
+	err = s.repo.AddBeer(ctx, input)
 	if err != nil {
 		return err
 	}
