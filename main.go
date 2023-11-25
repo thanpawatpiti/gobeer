@@ -33,6 +33,8 @@ func main() {
 	api.Put("/beer/:id", controller.UpdateBeer)
 	api.Delete("/beer/:id", controller.DeleteBeer)
 
+	api.Get("/menu", controller.GetMenu)
+
 	// Start server
 	app.Listen(":3000")
 }
