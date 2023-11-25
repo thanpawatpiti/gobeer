@@ -10,4 +10,6 @@ type BeerRepository interface {
 	GetBeer(ctx context.Context, name string, page int, per_page int) ([]interface{}, error)
 	GetTotalBeer(ctx context.Context, name string) (int, error)
 	AddBeer(ctx context.Context, input *entities.Beer) error
+	CreateLog(ctx context.Context, action string, input interface{}) error
+	UpdateBeer(ctx context.Context, input *entities.Beer, id int) error
 }

@@ -8,9 +8,7 @@ import (
 	"github.com/thanpawatpiti/gobeer/pkg/services/helpers"
 )
 
-func (s *Service) AddBeer(ctx context.Context, input *entities.Beer, image *multipart.FileHeader) error {
-	filePath := ""
-
+func (s *Service) UpdateBeer(ctx context.Context, entity *entities.Beer, image *multipart.FileHeader, id int) error {
 	if image != nil {
 		// Upload file
 		file, err := helpers.UploadFile(ctx, image)
@@ -18,19 +16,17 @@ func (s *Service) AddBeer(ctx context.Context, input *entities.Beer, image *mult
 			return err
 		}
 
-		filePath = file
+		entity.Image = file
 	}
 
-	input.Image = filePath
-
-	// Add beer
-	err := s.repo.AddBeer(ctx, input)
+	// Update beer
+	err := s.repo.UpdateBeer(ctx, entity, id)
 	if err != nil {
 		return err
 	}
 
 	// create logs
-	err = s.repo.CreateLog(ctx, "add beer", input)
+	err = s.repo.CreateLog(ctx, "update beer", entity)
 	if err != nil {
 		return err
 	}

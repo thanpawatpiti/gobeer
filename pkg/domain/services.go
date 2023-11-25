@@ -11,4 +11,5 @@ type BeerSerives interface {
 	GetBeer(ctx context.Context, name string, page int, per_page int) ([]interface{}, error)
 	GetTotalBeer(ctx context.Context, name string) (int, error)
 	AddBeer(ctx context.Context, input *entities.Beer, image *multipart.FileHeader) error
+	UpdateBeer(ctx context.Context, input *entities.Beer, image *multipart.FileHeader, id int) error
 }
