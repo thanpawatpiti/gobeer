@@ -20,27 +20,17 @@ func (c *Controller) UpdateBeer(ctx *fiber.Ctx) error {
 		})
 	}
 
-	if len(name) < 1 {
-		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"code":    fiber.StatusBadRequest,
-			"message": "name is required",
-		})
-	}
-
-	if len(beer_type_id) < 1 {
-		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"code":    fiber.StatusBadRequest,
-			"message": "beer_type_id is required",
-		})
-	}
-
 	// Parse to int
-	beer_type_idInt := c.parseToInt(beer_type_id)
 	idInt := c.parseToInt(id)
 
-	entity := &entities.Beer{
-		BeerName:   name,
-		BeerTypeID: beer_type_idInt,
+	entity := &entities.Beer{}
+
+	if len(name) > 0 {
+		entity.BeerName = name
+	}
+
+	if len(beer_type_id) > 0 {
+		entity.BeerTypeID = c.parseToInt(beer_type_id)
 	}
 
 	// Update beer
