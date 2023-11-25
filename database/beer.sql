@@ -3,9 +3,9 @@ CREATE TABLE `beer` (
   `beer_name` varchar(250) NOT NULL,
   `beer_type_id` int(10) unsigned NOT NULL,
   `image` varchar(250) NOT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  `deleted_at` datetime DEFAULT NULL,
+  `created_at` timestamp DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `beer_type_id_fk` (`beer_type_id`),
   CONSTRAINT `beer_type_id_fk` FOREIGN KEY (`beer_type_id`) REFERENCES `beer_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE

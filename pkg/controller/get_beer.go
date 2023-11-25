@@ -40,10 +40,36 @@ func (c *Controller) GetBeer(ctx *fiber.Ctx) error {
 		})
 	}
 
+	// pagination
+	total, err := c.service.GetTotalBeer(ctx.Context(), name)
+	if err != nil {
+		return ctx.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"code":    fiber.StatusInternalServerError,
+			"message": err.Error(),
+		})
+	}
+	last_page := total / per_pageInt
+	if total%per_pageInt != 0 {
+		last_page++
+	}
+
+	// Get next page
+	next_page := pageInt + 1
+	if next_page > last_page {
+		next_page = last_page
+	}
+
+	// Get prev page
+	prev_page := pageInt - 1
+	if prev_page < 1 {
+		prev_page = 1
+	}
+
+	// Return response
 	return ctx.Status(fiber.StatusOK).JSON(fiber.Map{
 		"code":    0,
 		"message": "success",
-		"data":    beers,
+		"data":    fiber.Map{"beers": beers, "total": total, "last_page": last_page, "next_page": next_page, "prev_page": prev_page},
 	})
 }
 
